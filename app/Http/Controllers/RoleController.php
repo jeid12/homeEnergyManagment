@@ -26,35 +26,31 @@ class RoleController extends Controller
      */
     public function  create()
     {
-        // $permissions = Permission::all();
-        // return response()->json([
-        //     'status' => true,
-        //     'message' => 'Permissions retrieved successfully',
-        //     'data' => $permissions
-        // ]);
+        $permissions = Permission::all();
 
-        return Inertia::render('roles/create');
+        return Inertia::render('roles/create', [
+            'permissions' => $permissions,
+        ]);
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-           
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'permissions' => 'array',
+        'permissions.*' => 'exists:permissions,id',
+    ]);
 
-        $role = Role::create([
-            'name' => $request->name,
-            
-        ]);
-        $role->syncPermissions($request->permissions);
+    $role = Role::create([
+        'name' => $validated['name'],
+    ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Role created successfully',
-            'data' => $role
-        ]);
-    }
+    $role->syncPermissions($validated['permissions'] ?? []);
+
+    return redirect()
+        ->route('roles.index')
+        ->with('success', 'Role created successfully.');
+}
 
     /**
      * Display the specified resource.
