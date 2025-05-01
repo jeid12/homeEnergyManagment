@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { UserCog,  Folder, LayoutGrid } from 'lucide-react';
+import { Folder, LayoutGrid, ActivitySquare, MonitorSmartphone, ShieldCheck, Users2,Bell } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -13,10 +13,31 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },{
-        title:'Roles',
-        href:'/role',
-        icon: UserCog,
-  }
+        title: 'Roles',
+        href: '/roles',
+        icon: ShieldCheck,  // Better represents access control
+      },
+      {
+        title: 'Users',
+        href: '/users',
+        icon: Users2,  // More clearly indicates user group
+      },
+      {
+        title: 'Devices',
+        href: '/devices',
+        icon: MonitorSmartphone,  // Suggests smart/mobile devices
+      },
+      {
+        title: 'Sensors',
+        href: '/sensors',
+        icon: ActivitySquare,  // Indicates data, activity or signal
+      },
+      {
+        title: 'Notifications',
+        href: '/notifications',
+        icon: Bell,
+      }
+  
 ];
 
 const footerNavItems: NavItem[] = [
