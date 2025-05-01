@@ -66,6 +66,17 @@ class RoleController extends Controller
         ]);
     }
 
+     // Show the form to edit an existing role
+     public function edit(string $id)
+     {
+         $role = Role::with('permissions')->findOrFail($id);
+         $permissions = Permission::all();  // Get all permissions for the form
+         return Inertia::render('roles/edit', [
+            'role' => $role,
+            'permissions' => $permissions
+        ]);
+     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -73,26 +84,20 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            
+            'permissions' => 'required|array',  // Ensure permissions are selected
         ]);
 
         $role = Role::findOrFail($id);
         $role->update([
             'name' => $request->name,
-            
         ]);
-        if ($request->has('permissions')) {
-            $role->syncPermissions($request->permissions);
-        }
-        
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Role updated successfully',
-            'data' => $role
-        ]);
+        // Sync the permissions with the role
+        $role->syncPermissions($request->permissions);
+
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -101,9 +106,6 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->delete();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Role deleted successfully',
-        ]);
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
 }
