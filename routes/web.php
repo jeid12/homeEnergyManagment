@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -15,6 +16,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
 });
 
 require __DIR__.'/settings.php';

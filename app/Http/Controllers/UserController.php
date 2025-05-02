@@ -126,4 +126,10 @@ class UserController extends Controller
     
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+    public function allUsercount(){
+        $userCount = User::count();
+        return Inertia::render('dashboard', [
+            'userCount' => $userCount,
+        ]);
+    } 
 }
