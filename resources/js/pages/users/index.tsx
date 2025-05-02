@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link,router  } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -30,6 +30,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function UsersIndex({ users }: { users: User[] }) {
+    const handleDelete = (id: number) => {
+        if (confirm('Are you sure you want to remove this user?')) {
+                  router.delete(`/users/${id}`);
+        }
+    };
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Users" />
@@ -46,7 +51,7 @@ export default function UsersIndex({ users }: { users: User[] }) {
 
         <div className="overflow-x-auto">
           <table className="w-full table-auto border border-gray-200 rounded-md text-sm">
-            <thead className="bg-gray-100 text-left">
+            <thead className="bg-primary-100 text-left">
               <tr>
                 <th className="p-3 border-b">#</th>
                 <th className="p-3 border-b">Name</th>
@@ -58,7 +63,7 @@ export default function UsersIndex({ users }: { users: User[] }) {
             <tbody>
               {users.length > 0 ? (
                 users.map((user, index) => (
-                  <tr key={user.id} className="hover:bg-gray-50">
+                  <tr key={user.id} >
                     <td className="p-3 border-b">{index + 1}</td>
                     <td className="p-3 border-b">{user.name}</td>
                     <td className="p-3 border-b">{user.email}</td>
@@ -77,11 +82,11 @@ export default function UsersIndex({ users }: { users: User[] }) {
                             <PencilIcon className="w-4 h-4" />
                           </Button>
                         </Link>
-                        <Link href={`/users/${user.id}/delete`}>
-                          <Button variant="destructive" size="sm">
+                        
+                          <Button variant="destructive"  onClick={() => handleDelete(user.id)} size="sm">
                             <TrashIcon className="w-4 h-4" />
                           </Button>
-                        </Link>
+                        
                       </div>
                     </td>
                   </tr>
