@@ -46,4 +46,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function devices()
+{
+    return $this->hasMany(Device::class);
 }
+
+    public function hasDevice($deviceId)
+{
+    return $this->devices()->where('id', $deviceId)->exists();
+}  
+} 
