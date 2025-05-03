@@ -20,7 +20,7 @@ import {
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Dashboard', href: '/dashboard' },
-  { title: 'Roles', href: '/roles' },
+  
 ];
 
 const chartData = [
@@ -40,7 +40,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function Dashboard({ userCount }: { userCount: number }) {
+export default function Dashboard({ userCount, deviceCount,totalEnergyConsumed }: { userCount: number, deviceCount: number , totalEnergyConsumed: number }) {
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Dashboard" />
@@ -48,8 +48,8 @@ export default function Dashboard({ userCount }: { userCount: number }) {
         {/* Summary Cards */}
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
           <SummaryCard value={userCount} label="Total Users" gradient="from-purple-600 via-pink-500 to-red-500" />
-          <SummaryCard value={12345} label="Total Devices" gradient="from-green-400 via-yellow-400 to-yellow-500" />
-          <SummaryCard value="145678 Khw" label="Total Energy" gradient="from-blue-500 via-indigo-500 to-purple-600" />
+          <SummaryCard value={deviceCount} label="Total Devices" gradient="from-green-400 via-yellow-400 to-yellow-500" />
+          <SummaryCard value={totalEnergyConsumed} label="Total Energy in KWh" gradient="from-blue-500 via-indigo-500 to-purple-600" />
           <SummaryCard value="5.2%" label="Energy Savings" gradient="from-red-500 via-orange-500 to-yellow-500" />
           <SummaryCard value="2.5%" label="Energy Cost" gradient="from-green-500 via-blue-500 to-purple-600" />
           <SummaryCard value="3.5%" label="Energy Efficiency" gradient="from-pink-500 via-red-500 to-orange-500" />
@@ -59,9 +59,7 @@ export default function Dashboard({ userCount }: { userCount: number }) {
         <ChartCard
           title="Energy Usage Trend"
           description="January - June 2024"
-          lines={[
-            { dataKey: "EnergyUsage", stroke: "#3b82f6", label: "Actual Usage" },
-          ]}
+          lines={[{ dataKey: "EnergyUsage", stroke: "#3b82f6", label: "Actual Usage" }]}
           data={chartData}
         />
 
@@ -71,7 +69,7 @@ export default function Dashboard({ userCount }: { userCount: number }) {
           description="Comparison powered by AI Model"
           lines={[
             { dataKey: "EnergyUsage", stroke: "#3b82f6", label: "Actual" },
-            { dataKey: "PredictedUsage", stroke: "#22c55e", label: "Predicted" },
+            { dataKey: "PredictedUsage", stroke: "#22c55e", label: "Predicted" }
           ]}
           data={chartData}
         />

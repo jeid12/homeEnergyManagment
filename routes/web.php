@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeviceController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -17,6 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+Route::resource('devices', DeviceController::class);
     
 });
 
