@@ -3,6 +3,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, Legend } from "recharts";
+
 import {
   Card,
   CardContent,
@@ -40,7 +41,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function Dashboard({ userCount, deviceCount,totalEnergyConsumed }: { userCount: number, deviceCount: number , totalEnergyConsumed: number }) {
+export default function Dashboard({ userCount, deviceCount,totalEnergyConsumed,sensors }: { userCount: number, deviceCount: number , totalEnergyConsumed: number, sensors: number }) {
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Dashboard" />
@@ -50,7 +51,7 @@ export default function Dashboard({ userCount, deviceCount,totalEnergyConsumed }
           <SummaryCard value={userCount} label="Total Users" gradient="from-purple-600 via-pink-500 to-red-500" />
           <SummaryCard value={deviceCount} label="Total Devices" gradient="from-green-400 via-yellow-400 to-yellow-500" />
           <SummaryCard value={totalEnergyConsumed} label="Total Energy in KWh" gradient="from-blue-500 via-indigo-500 to-purple-600" />
-          <SummaryCard value="5.2%" label="Energy Savings" gradient="from-red-500 via-orange-500 to-yellow-500" />
+          <SummaryCard value={sensors} label="Total Sensors" gradient="from-red-500 via-orange-500 to-yellow-500" />
           <SummaryCard value="2.5%" label="Energy Cost" gradient="from-green-500 via-blue-500 to-purple-600" />
           <SummaryCard value="3.5%" label="Energy Efficiency" gradient="from-pink-500 via-red-500 to-orange-500" />
         </div>
