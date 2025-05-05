@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewUserRegistered;
 
 class RegisteredUserController extends Controller
 {
@@ -43,6 +45,10 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        // Send notification to admin
+        // Notify admins
+            $admins = User::where('role', 'admin')->get();
+            Notification::send($admins, new NewUserRegistered($user));
 
         Auth::login($user);
 
