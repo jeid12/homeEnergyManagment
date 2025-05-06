@@ -9,27 +9,41 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\NotificationController;
 
+// Public route
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('welcome'); // Make sure Welcome.vue exists in Pages/
 })->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+// This route is only to redirect to correct dashboard based on role
+Route::middleware(['auth', 'verified', 'role.redirect'])->get('/dashboard', function () {
+    return Inertia::render('Redirecting'); // Optional dummy page if needed
+})->name('dashboard');
+
+// Admin dashboard route
+Route::middleware(['auth', 'verified'])->get('/admin/dashboard', function () {
+    return Inertia::render('dashboard'); // Ensure this file exists at resources/js/Pages/Dashboard.vue
+})->name('admin.dashboard');
+
+// Client dashboard route
+Route::middleware(['auth', 'verified'])->get('/client/dashboard', function () {
+    return Inertia::render('userDashboard'); // Ensure this file exists at resources/js/Pages/UserDashboard.vue
+})->name('client.dashboard');
+
+Route::middleware(['auth', 'verified', 'admin.only'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-Route::resource('devices', DeviceController::class);
-Route::resource('sensors', SensorController::class);
-    
-    
-});
-Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('devices', DeviceController::class);
+    Route::resource('sensors', SensorController::class);
+   
+
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.readAll');
+});
+
+// Shared authenticated routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

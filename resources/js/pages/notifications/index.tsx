@@ -43,13 +43,13 @@ export default function Notifications({ notifications }: { notifications: Notifi
         ) : (
           <ul className="space-y-4">
             {notifications.map((n) => (
-              <li key={n.id} className="p-4 border rounded-md shadow-sm bg-white">
+              <li key={n.id} className="p-4 border rounded-md shadow-sm bg-gray-50 dark:bg-gray-800">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-semibold">
                       {n.data.title || 'Notification'}
                     </p>
-                    <p className="text-sm">{n.data.message || 'No details provided.'}</p>
+                    <p className="text-sm ">{n.data.message || 'No details provided.'}</p>
                     <p className="text-xs text-muted-foreground">
                       {new Date(n.created_at).toLocaleString()}
                     </p>

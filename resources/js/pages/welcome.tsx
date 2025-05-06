@@ -195,8 +195,8 @@ export default function Welcome() {
                     <div className="grid md:grid-cols-3 gap-12 mb-12">
                         <div>
                             <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
-                            <p className="mb-4 text-gray-300">Email: info@hem.rw</p>
-                            <p className="mb-4 text-gray-300">Phone: +250 788 123 456</p>
+                            <p className="mb-4 text-gray-300">Email: niyokwizerajd123@gmail.com</p>
+                            <p className="mb-4 text-gray-300">Phone: +250 784422138</p>
                             <p className="text-gray-300">Address: Kigali, Rwanda</p>
                         </div>
                         <div>
@@ -209,10 +209,10 @@ export default function Welcome() {
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-xl font-semibold mb-4">Newsletter</h3>
+                            <h3 className="text-xl font-semibold  mb-4">Newsletter</h3>
                             <p className="mb-4 text-gray-300">Subscribe to get updates on energy saving tips</p>
                             <div className="flex">
-                                <input type="email" placeholder="Your email" className="px-4 py-2 rounded-l-md w-full text-gray-800" />
+                                <input type="email" placeholder="Your email" className="px-4 py-2 rounded-l-md w-full text-white-50 " />
                                 <button className="bg-yellow-500 px-4 py-2 rounded-r-md hover:bg-yellow-600 transition">Subscribe</button>
                             </div>
                         </div>
