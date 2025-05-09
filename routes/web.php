@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ChatController;
 
 // Public route
 Route::get('/', function () {
@@ -29,7 +30,7 @@ Route::middleware(['auth', 'verified'])->get('/client/dashboard', function () {
     return Inertia::render('userDashboard'); // Ensure this file exists at resources/js/Pages/UserDashboard.vue
 })->name('client.dashboard');
 
-Route::middleware(['auth', 'verified', 'admin.only'])->group(function () {
+Route::middleware(['auth', 'verified',])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('devices', DeviceController::class);
@@ -44,6 +45,16 @@ Route::middleware(['auth', 'verified', 'admin.only'])->group(function () {
 // Shared authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+//
+// Chat routes                                                                                                      
+Route::middleware(['auth'])->group(function () {
+    // Route for showing the user chat page
+    Route::get('/user-problems', [ChatController::class, 'index'])->name('chat.index');
+    
+    // Route for storing a new message
+    Route::post('/user-problems/store', [ChatController::class, 'store'])->name('chat.store');
 });
 
 require __DIR__.'/settings.php';

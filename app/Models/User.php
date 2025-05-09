@@ -55,5 +55,10 @@ class User extends Authenticatable
     public function hasDevice($deviceId)
 {
     return $this->devices()->where('id', $deviceId)->exists();
-}  
+} 
+public function conversations()
+{
+    return $this->hasMany(Conversation::class);
+}
+ 
 } 

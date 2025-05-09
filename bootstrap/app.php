@@ -25,11 +25,12 @@ return Application::configure(basePath: dirname(__DIR__))
          // ✅ Register route middleware
         $middleware->alias([
             'role.redirect' => RedirectToRoleDashboard::class,
+            'admin.only' => \App\Http\Middleware\AdminOnly::class,
+       
         ]);
         //admin only
-        $middleware->alias([
-            'admin.only' => \App\Http\Middleware\AdminOnly::class,
-        ]);
+        
+            
         
     })
     ->withExceptions(function (Exceptions $exceptions) {
