@@ -26,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role.redirect' => RedirectToRoleDashboard::class,
             'admin.only' => \App\Http\Middleware\AdminOnly::class,
+            'isAdmin' => \App\Http\Middleware\IsAdmin::class,
+
        
         ]);
         //admin only

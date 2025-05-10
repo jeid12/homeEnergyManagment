@@ -12,13 +12,13 @@ class AdminChatController extends Controller
     public function index()
 {
     $conversations = Conversation::with('user')->latest()->get();
-    return inertia('Chat/AdminInbox', compact('conversations'));
+    return inertia('chat/adminInbox', compact('conversations'));
 }
 
 public function show(Conversation $conversation)
 {
     $messages = $conversation->messages()->with('sender')->get();
-    return inertia('Chat/AdminChat', [
+    return inertia('chat/adminChat', [
         'conversation' => $conversation,
         'messages' => $messages,
     ]);

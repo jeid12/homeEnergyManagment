@@ -9,6 +9,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\SensorController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\AdminChatController;
 
 // Public route
 Route::get('/', function () {
@@ -56,6 +57,14 @@ Route::middleware(['auth'])->group(function () {
     // Route for storing a new message
     Route::post('/user-problems/store', [ChatController::class, 'store'])->name('chat.store');
 });
+
+// Admin chat routes
+Route::prefix('admin/chat')->name('admin.chat.')->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/', [AdminChatController::class, 'index'])->name('index');
+    Route::get('/{conversation}', [AdminChatController::class, 'show'])->name('show');
+    Route::post('/{conversation}/reply', [AdminChatController::class, 'reply'])->name('reply');
+});
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

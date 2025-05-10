@@ -33,6 +33,11 @@ const mainNavItems: NavItem[] = [
         icon: ActivitySquare,  // Indicates data, activity or signal
       },
       {
+        title: "Chat Reply",
+        href: "/admin/chat",
+        icon: ActivitySquare,
+      },
+      {
         title: 'Notifications',
         href: '/notifications',
         icon: Bell,
