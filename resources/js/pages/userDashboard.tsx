@@ -30,7 +30,7 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: 'Energy Consumption',
-    color: 'hsl(var(--chart-1))',
+    color: '#4B5',
   },
 } satisfies ChartConfig
 
