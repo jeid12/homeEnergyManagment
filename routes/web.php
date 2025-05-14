@@ -45,11 +45,11 @@ Route::middleware(['auth', 'verified',])->group(function () {
 
 // Shared authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
 
 //
-// Chat routes                                                                                                      
+// Chat routes
 Route::middleware(['auth'])->group(function () {
     // Route for showing the user chat page
     Route::get('/user-problems', [ChatController::class, 'index'])->name('chat.index');

@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
     $request->authenticate();
     $request->session()->regenerate();
 
-    /** @var \App\Models\User $user */  // ✅ This tells Intelephense what $user is
+    /** @var \App\Models\User $user */  //  This tells Intelephense what $user is
         $user = Auth::user();
 
     if ($user->hasRole('admin')) {
